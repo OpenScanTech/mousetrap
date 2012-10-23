@@ -808,7 +808,8 @@
         * @return {boolean}
         */
         stopCallback: function(e, element, combo) {
-            
+
+            // If we are currently paused, do not allow fire for element
             if(_paused){
                 return true;
             }
