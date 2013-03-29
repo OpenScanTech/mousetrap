@@ -6,6 +6,9 @@
 <p>For testing mousetrap</p>
 <p>When the row is highlighted press the key(s).  If you can't get anything to happen for a certain test press the f key to mark it as a failure</p>
 <p>This test is to test the default values if you don't specify an event type.  Basically it decides if it should default to keydown or keyup</p>
+<input type="button" onclick="toggleMouseTrapPause();" value="Toggle Pause">&nbsp;&nbsp;<span id="currentPauseState"></span>
+<br/>
+<br/>
 <table>
     <thead>
         <tr>
@@ -47,5 +50,26 @@
     PeanutButter.addTest('left b a enter', ['keydown'], true);
 
     PeanutButter.spread();
+
+    var toggleMouseTrapPause = function(){
+        if(Mousetrap.isPaused()){
+            Mousetrap.resume();
+        }
+        else{
+            Mousetrap.pause();
+        }          
+
+        setPauseState();
+    };
+
+    var setPauseState = function() {
+        var pauseState = Mousetrap.isPaused() 
+            ? "<i style='color:red;''>Paused</i>"
+            : "<i style='color:green;'>Active</i>";
+
+        $('#currentPauseState').html(pauseState);
+    };
+
+    setPauseState();
 </script>
 </body>

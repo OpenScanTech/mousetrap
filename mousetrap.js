@@ -178,7 +178,13 @@
          *
          * @type {boolean|string}
          */
-        _inside_sequence = false;
+        _inside_sequence = false,
+
+        /**
+         * determines wheather or not to trigger the events
+         * @type {boolean|string}
+        */
+        _paused = false;
 
     /**
      * loop through the f keys, f1 to f19 and add them to the map
@@ -792,6 +798,9 @@
         * @return {boolean}
         */
         stopCallback: function(e, element, combo) {
+            if(_paused){
+                return true;
+            }
 
             // if the element has the class "mousetrap" then no need to stop
             if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
@@ -800,6 +809,18 @@
 
             // stop for input, select, and textarea
             return element.tagName == 'INPUT' || element.tagName == 'SELECT' || element.tagName == 'TEXTAREA' || (element.contentEditable && element.contentEditable == 'true');
+        },
+
+        pause: function() {
+            _paused = true;
+        },
+
+        resume: function() {
+            _paused = false;
+        },
+
+        isPaused: function() {
+            return _paused;
         }
     };
 
