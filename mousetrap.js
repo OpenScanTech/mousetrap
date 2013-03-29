@@ -22,6 +22,12 @@
 (function() {
 
     /**
+     * If this is set to true, we will fire for all elements
+     * including editable elements.
+     */
+    var _fireForAllElements = false;
+    
+    /**
      * mapping of special keycodes to their corresponding keys
      *
      * everything in this dictionary cannot use keypress events
@@ -790,6 +796,10 @@
             return this;
         },
 
+        fireForAllElements: function(val) {
+            _fireForAllElements = val;
+        },
+
        /**
         * should we stop this event before firing off callbacks
         *
@@ -798,9 +808,14 @@
         * @return {boolean}
         */
         stopCallback: function(e, element, combo) {
+            
             if(_paused){
                 return true;
             }
+
+            // if we have said we want to fire for all elements, don't check anything.
+            if (_fireForAllElements)
+                return false;
 
             // if the element has the class "mousetrap" then no need to stop
             if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
@@ -832,3 +847,4 @@
         define('mousetrap', function() { return Mousetrap; });
     }
 }) ();
+
