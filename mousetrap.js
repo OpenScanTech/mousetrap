@@ -808,6 +808,9 @@
         * @return {boolean}
         */
         stopCallback: function(e, element, combo) {
+            // if we have said we want to fire for all elements, don't check anything.
+            if (_fireForAllElements)
+                return false;
 
             // If we are currently paused, do not allow fire for element
             if(_paused){
